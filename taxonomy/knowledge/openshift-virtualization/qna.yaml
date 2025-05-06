@@ -81,4 +81,4 @@ document:
   repo: https://github.com/hinunbi/etx-ai-hello.git
   commit: 950e17787c07f59de510ecb456636f0946328744
   patterns:
-    - knowleged.md
+    - knowledge.md
