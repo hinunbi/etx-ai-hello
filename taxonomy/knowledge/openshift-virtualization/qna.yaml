@@ -28,3 +28,51 @@ seed_example:
           How do CPU manager and soft eviction thresholds aid in managing resources for large virtualization workloads?
         answer: |
           Without CPU manager, virtual machines using dedicated CPU scheduling, such as those configured with the cx instance type, cannot be scheduled. Configuring soft eviction is valuable for several reasons, however the most important is that it sets the upper boundary for memory utilization on the nodes before the virtual machines are attempted to be moved to other hosts in the cluster.
+
+  - context: |
+        OpenShift Virtualization integrates Red Hat's KVM hypervisor into the OpenShift platform, allowing users to manage both containers and virtual machines (VMs) using Kubernetes. This integration provides a unified platform for diverse workloads, offering features such as live migration and load balancing. OpenShift Virtualization supports multiple deployment options, including on-premises and cloud environments. Effective resource management is crucial, involving settings like kubeAPIBurst and kubeAPIQPS for API handling, and configuring CPU and memory allocation to prevent resource starvation. Additionally, setting the maximum number of Pods per node and using dynamic resource allocation helps optimize performance on large nodes.
+    questions_and_answers:
+      - question: |
+          How does OpenShift Virtualization enable management of both containers and virtual machines?
+        answer: |
+          OpenShift Virtualization integrates the KVM hypervisor with Kubernetes, allowing users to manage both containers and virtual machines within the same platform. This integration provides a seamless experience, enabling features like live migration and resource management using Kubernetes' scheduling capabilities.
+      - question: |
+          Why is dynamic resource allocation important in OpenShift Virtualization?
+        answer: |
+          Dynamic resource allocation ensures that the kubelet has sufficient CPU and memory resources, preventing resource starvation as workloads increase. This is especially critical for nodes hosting a large number of Pods and VMs, maintaining performance and stability.
+      - question: |
+          What are kubeAPIBurst and kubeAPIQPS, and why are they adjusted in large node environments?
+        answer: |
+          kubeAPIBurst and kubeAPIQPS are settings that control the rate of API requests handled by the kubelet. Increasing these values in large node environments allows higher throughput of API requests, which is essential for efficiently managing bulk object creation and maintaining responsiveness.
+
+  - context: |
+        High availability (HA) in OpenShift Virtualization ensures that applications remain available despite failures. The control plane manages workload scheduling, redistributing tasks if nodes fail. OpenShift uses multiple control plane nodes to maintain operations even if one node fails. For disaster recovery, OpenShift supports various strategies, including using the OpenShift APIs for Data Protection (OADP) to create backups and restore workloads. These strategies help ensure business continuity by allowing applications to recover quickly from failures.
+    questions_and_answers:
+      - question: |
+          How does OpenShift ensure high availability for applications running on its platform?
+        answer: |
+          OpenShift ensures high availability by using multiple control plane nodes, which manage workload scheduling and redistribute tasks if nodes fail. This setup allows the platform to continue operating even if one control plane node becomes unavailable, maintaining application availability.
+      - question: |
+          What role does the OpenShift APIs for Data Protection (OADP) play in disaster recovery?
+        answer: |
+          The OpenShift APIs for Data Protection (OADP) facilitate disaster recovery by enabling users to create backups and restore workloads. This capability ensures that applications can be quickly recovered after a failure, supporting business continuity and minimizing downtime.
+      - question: |
+          What happens if all control plane nodes in OpenShift fail simultaneously?
+        answer: |
+          If all control plane nodes fail simultaneously, the cluster becomes offline and unreachable. Restoring the control plane is necessary to return the cluster to a functional state, highlighting the importance of maintaining robust control plane configurations and disaster recovery strategies.
+
+  - context: |
+        OpenShift Virtualization uses a software-defined network (SDN) to manage networking for Pods and VMs. This configuration allows VMs to have internal IP addresses and be accessed through Kubernetes services and routes. For storage, OpenShift utilizes the Persistent Volume (PV) paradigm, with each VM disk stored in dedicated persistent volumes managed via Container Storage Interface (CSI) drivers. Live migration of VMs requires RWX (read-write-many) access mode, ensuring disks can mount to source and destination nodes during migration.
+    questions_and_answers:
+      - question: |
+          How does OpenShift Virtualization manage networking for virtual machines?
+        answer: |
+          OpenShift Virtualization manages networking using a software-defined network (SDN), which provides VMs with internal IP addresses. These VMs can be accessed using Kubernetes services and routes, ensuring connectivity and integration with existing network policies.
+      - question: |
+          What is the role of Persistent Volumes in OpenShift Virtualization?
+        answer: |
+          Persistent Volumes (PVs) in OpenShift Virtualization store each VM disk in dedicated volumes managed by CSI drivers. This approach allows for granular control of storage resources and supports features like snapshots and resizing, ensuring that storage is tailored to VM workload requirements.
+      - question: |
+          Why is RWX access mode important for live migration in OpenShift Virtualization?
+        answer: |
+          RWX (read-write-many) access mode is important for live migration because it allows VM disks to be mounted on both source and destination nodes during migration. This capability is crucial for ensuring a smooth and uninterrupted migration process, enabling VMs to maintain their state and data integrity.
