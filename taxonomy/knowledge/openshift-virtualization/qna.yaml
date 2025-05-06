@@ -76,3 +76,9 @@ seed_example:
           Why is RWX access mode important for live migration in OpenShift Virtualization?
         answer: |
           RWX (read-write-many) access mode is important for live migration because it allows VM disks to be mounted on both source and destination nodes during migration. This capability is crucial for ensuring a smooth and uninterrupted migration process, enabling VMs to maintain their state and data integrity.
+
+document:
+  repo: https://github.com/hinunbi/etx-ai-hello.git
+  commit: 950e17787c07f59de510ecb456636f0946328744
+  patterns:
+    - knowleged.md
