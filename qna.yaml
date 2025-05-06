@@ -3,3 +3,28 @@ domain: redhat openshift container platform virtualization
 created_by: swongpai-jhocha
 document_outline: |
   The implementation guidelines and a sample reference architecture for deploying Red Hat OpenShift as a platform for virtualization workloads using OpenShift Virtualization. 
+# for multiple year document -> create separate qna for each year
+# seed_example: should be in 750 tokens(words)
+seed_example:
+# contexts: ~ 300-500 tokens
+  - context: |
+        The following additional configuration for kubelet is applied after the cluster is deployed.
+        Increase kubelet kubeAPIBurst to 200 and kubeAPIQPS to 100. Adjusting these values up from the default of 100 and 50, respectively, accommodates bulk object creation on the nodes. The lower values are useful on clusters with smaller nodes to keep API server resource utilization reasonable, however with larger nodes this is not an issue.
+        Set the maxPods per node to 500. By default, OpenShift sets the maximum Pods per node to 250. This value affects not just the Pods running core OpenShift services and node functions but also virtual machines. For large virtualization nodes that can host many virtual machines, this value is likely too small. If you're using very large nodes and may have more than 500 VMs and Pods on a node, this value can be increased beyond 500, however you will also need to adjust the size of the cluster network's host prefix when deploying the cluster.
+        Disable nodeStatusMaxImage . The scheduler factors both the count of container images and which container images are on a host when deciding where to place a Pod or virtual machine. For large nodes with many different Pods and VMs, this can lead to. et dynamic resource allocation for kubelet. The default CPU and memory reservation for kubelet is very small and not appropriate for nodes with large amounts of resources.
+        Configure CPU manager to enable dedicated resources for virtual machines to be assigned. Without CPU manager, virtual machines using dedicated CPU scheduling.
+        Configure soft eviction thresholds. Configuring soft eviction is valuable for several reasons, however the most important is that it sets the upper boundary for memory utilization on the nodes before the virtual machines are attempted to be moved to other hosts in the cluster.
+# questions_and_ansers: ~250 tokens (max 3 pairs per context section)
+    questions_and_answers:
+      - question: |
+          What are the implications of setting maxPods per node to 500 in OpenShift?
+        answer: |
+          For large virtualization nodes that can host many virtual machines, this value is likely too small. If you're using very large nodes and may have more than 500 VMs and Pods on a node, this value can be increased beyond 500
+      - question: |
+          Why increase kubeAPIBurst to 200 and kubeAPIQPS to 100 in clusters with larger nodes?
+        answer: |
+          accommodates bulk object creation on the nodes. The lower values are useful on clusters with smaller nodes to keep API server resource utilization reasonable, however with larger nodes this is not an issue.
+      - question: |
+          How do CPU manager and soft eviction thresholds aid in managing resources for large virtualization workloads?
+        answer: |
+          Without CPU manager, virtual machines using dedicated CPU scheduling, such as those configured with the cx instance type, cannot be scheduled. Configuring soft eviction is valuable for several reasons, however the most important is that it sets the upper boundary for memory utilization on the nodes before the virtual machines are attempted to be moved to other hosts in the cluster.
