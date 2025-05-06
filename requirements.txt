@@ -154,7 +154,6 @@ tzdata==2025.2
 urllib3==2.4.0
 uvicorn==0.34.2
 uvloop==0.21.0
--e git+https://github.com/vllm-project/vllm.git@999328be0d180c40417131252d7a0838c3f1f403#egg=vllm
 watchfiles==1.0.5
 websockets==15.0.1
 wrapt==1.17.2
@@ -162,3 +161,4 @@ XlsxWriter==3.2.3
 xxhash==3.5.0
 yarl==1.20.0
 zipp==3.21.0
+hf_transfer==0.1.9
