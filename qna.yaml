@@ -1,0 +1,5 @@
+version: 1
+domain: redhat openshift container platform virtualization 
+created_by:
+document_outline: |
+  The implementation guidelines and a sample reference architecture for deploying Red Hat OpenShift as a platform for virtualization workloads using OpenShift Virtualization. 
